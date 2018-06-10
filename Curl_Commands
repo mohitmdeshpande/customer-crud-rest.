@@ -1,0 +1,17 @@
+To create a new customer-
+curl -i -X POST -H "Content-Type: application/json" -d "{\"custName\":\"Mohit\",\"custAddress\":\"Bangalore\",\"custEEmail\":\"mohit@test.com\",\"custMobile\":\"+919423412396\"}" localhost:8080/customers
+
+To view the created cutsomer
+curl -i -H "Accept: application/json" localhost:8080/customers/{id}
+curl -i -H "Accept: application/json" localhost:8080/customers/5b1d55667c67d526a4b51882
+
+To view all customers
+curl -i -H "Accept: application/json" localhost:8080/customers
+
+To update a particular customer
+curl -i -X PUT -H "Content-Type: application/json" -d "{\"custName\":\"Mohit Deshpande\"}" localhost:8080/customers/{id}
+curl -i -X PUT -H "Content-Type: application/json" -d "{\"custName\":\"Mohit Deshpande\"}" localhost:8080/customers/5b1d55667c67d526a4b51882
+
+
+To delete a specific customer
+curl -i -X DELETE localhost:8080/customers/5b1d551f7c67d526a4b51881
