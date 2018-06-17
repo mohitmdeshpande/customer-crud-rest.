@@ -1,6 +1,9 @@
 package com.mohit.customercrudgradle.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +26,16 @@ public class CustomerController {
     }
 
     @RequestMapping(method=RequestMethod.POST, value="/customers")
-    public String save(@RequestBody Customer customer) {
+    public String save(@Valid @RequestBody Customer customer, BindingResult bindingResult) {
+    	
+    	 if (bindingResult.hasErrors()) {
+             return "Error adding new customer";
+         }
+    	
     	customerRepository.save(customer);
 
         return customer.getId();
+ 
     }
 
     @RequestMapping(method=RequestMethod.GET, value="/customers/{id}")
@@ -35,7 +44,7 @@ public class CustomerController {
     }
 
     @RequestMapping(method=RequestMethod.PUT, value="/customers/{id}")
-    public Customer update(@PathVariable String id, @RequestBody Customer customer) {
+    public Customer update(@PathVariable String id,@Valid @RequestBody Customer customer) {
         Customer cust = customerRepository.findOne(id);
         if(customer.getCustName() != null)
         	cust.setCustName(customer.getCustName());
